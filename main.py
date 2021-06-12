@@ -24,6 +24,8 @@ SAUT = {
     'right': Vec2(-1, 2).normalized() * .2
 }
 ELAST = 1
+COMMAND_SPEED = .3
+WALKING_SPEED = .6
 
 
 cote_bleu = load_texture('cote-bleu', path='assets')
@@ -58,6 +60,15 @@ class Player(Sprite):
         if self.control:
             self.velocity.x += (held_keys['right arrow'] - held_keys['left arrow']) * time.dt
 
+        if distance2d(self, self.other) >= self.length:
+            vec = self.other.position - self.position
+            vec = vec.normalized()
+            k = sum(vec * self.velocity)
+            if distance2d(self, self.other) > self.length:
+                k = k*1.10
+            vec *= max(-k, 0)
+            self.velocity += (vec.x, vec.y)
+
         touching = None
 
         direction = self.down
@@ -88,22 +99,21 @@ class Player(Sprite):
         
         self.position += self.velocity * time.dt
 
-        if distance2d(self, self.other) > self.length:
-            vec = self.other.position - self.position
-            vec *= distance2d(self, self.other) - self.length
-            vec *= ELAST * time.dt
-            self.velocity += (vec.x, vec.y)
 
 
     def cast(self, direction:Vec2):
         direction = direction.normalized()
-        hits_info = boxcast(self.position + direction * self.width / 2, 
+        self.position += direction * (length(self.velocity) * time.dt)
+        hits_info = self.intersects()
+        self.position -= direction * (length(self.velocity) * time.dt)
+        
+        """ raycast(self.position + direction * self.width / 2, 
             direction = direction,
-            distance = length(self.velocity) * time.dt,
-            thickness = self.width/2,
+            distance = ,
+            #thickness = self.width/2,
             ignore = (self,),
             debug = True
-        )
+        ) """
         
         return hits_info
         
