@@ -1,6 +1,6 @@
 from math import hypot
 from ursina import *
-from ursina.application import pause
+from ursina.application import pause, resume
 from ursina.prefabs.sprite import Sprite
 from level_loader import Level
 
@@ -119,6 +119,26 @@ def build_terrain_sprite(x, y, tile):
     return Sprite(tile['texture'], position=(x, y), scale = SCALE*3.2, collider='box')
 
 terrain = [build_terrain_sprite(x, y, tile) for x, y, tile in level1.iter_layer('terrain')]  
+
+
+def do_unpause():
+    print('unpause clicked')
+    resume()
+    unpause.disable()
+
+unpause = Button('start/continue', scale = SCALE)
+unpause.always_on_top = True
+unpause.on_click = do_unpause
+unpause.ignore_paused = True
+
+
+def input(key):
+    if key == 'escape':
+        unpause.enable()
+        pause()
+
+pause()
+
 
 if __name__ == '__main__':
     app.run()
