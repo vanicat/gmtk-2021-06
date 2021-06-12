@@ -49,3 +49,19 @@ Severall helper method are available"""
 
     def iter_layer(self, name):
         layer = self.layers[name]
+        for chunk in layer['chunks']:
+            data = iter(chunk['data'])
+            height = chunk['height']
+            width = chunk['width']
+            start_x = chunk['x']
+            start_y = chunk['y']
+            for y in range(start_y, start_y + height):
+                for x in range(start_x, start_x + width):
+                    tile_id = next(data)
+                    if tile_id != 0:
+                        tile = self.tileset[tile_id]
+                        yield (x, y, tile)
+# %%
+if __name__ == '__main__':
+    app = Ursina()
+    level = Level('level1')
