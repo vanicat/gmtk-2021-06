@@ -29,11 +29,11 @@
          "id":1,
          "name":"terrain",
          "opacity":1,
-         "startx":-32,
+         "startx":-16,
          "starty":-16,
          "type":"tilelayer",
          "visible":true,
-         "width":48,
+         "width":32,
          "x":0,
          "y":0
         }, 
@@ -63,7 +63,7 @@
                  "type":"red-start",
                  "visible":true,
                  "width":32,
-                 "x":-386,
+                 "x":-370,
                  "y":-97
                 }, 
                 {
