@@ -39,6 +39,7 @@ class Player(Sprite):
         self.width = texture.width * SCALE / 100
         self.height = texture.height * SCALE / 64
         #self.collider.visible = True
+        self.other = None
 
     def input(self, key):
         print(key, self.touching)
@@ -95,6 +96,9 @@ class Player(Sprite):
 red_sprite = Player(texture=cote_rouge, position=level1.object_position('objects', 'red-start'))
 blue_sprite = Player(texture=cote_bleu, position=level1.object_position('objects', 'blue-start'))
 
+
+red_sprite.other = blue_sprite
+blue_sprite.other = red_sprite
 
 def build_terrain_sprite(x, y, tile):
     return Sprite(tile['texture'], position=(x, y), scale = SCALE*3.2, collider='box')
