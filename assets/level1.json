@@ -51,8 +51,8 @@
                  "type":"blue-start",
                  "visible":true,
                  "width":32,
-                 "x":-416,
-                 "y":-385
+                 "x":-414,
+                 "y":-425
                 }, 
                 {
                  "gid":4,
@@ -64,7 +64,7 @@
                  "visible":true,
                  "width":32,
                  "x":-386,
-                 "y":-127
+                 "y":-97
                 }, 
                 {
                  "gid":6,
