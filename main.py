@@ -20,8 +20,13 @@ level1 = Level('level1')
 camera.position = level1.object_position('objects', 'camera')
 camera.position *= SCALE
 
-red_sprite = Sprite(texture=cote_rouge, scale = (1, 1), position = level1.object_position('objects', 'red-start'), rotation_z = 90)
-blue_sprite = Sprite(texture=cote_bleu, scale = (1, 1), position = level1.object_position('objects', 'blue-start'), rotation_z = 90)
+class Player(Sprite):
+    def __init__(self, texture, position):
+        super().__init__(texture=texture, position = position, scale=(1, 1), rotation_z=90)
+
+
+red_sprite = Player(texture=cote_rouge, position=level1.object_position('objects', 'red-start'))
+blue_sprite = Player(texture=cote_bleu, position=level1.object_position('objects', 'blue-start'))
 
 
 def build_terrain_sprite(x, y, tile):
