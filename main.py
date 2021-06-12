@@ -33,22 +33,26 @@ level1 = Level('level1', SCALE)
 camera.position = level1.object_position('objects', 'camera')
 
 class Player(Sprite):
-    def __init__(self, texture, position):
+    def __init__(self, texture, position, control = True):
         super().__init__(texture=texture, position = position, scale=(SCALE, SCALE), collider = 'box')
         self.velocity = Vec2(0, 0)
         self.width = texture.width * SCALE / 100
         self.height = texture.height * SCALE / 64
         #self.collider.visible = True
+        self.control = control
         self.other = None
 
     def input(self, key):
-        print(key, self.touching)
-        if key == 'space' and self.touching:
-            self.velocity += SAUT[self.touching]
+        if self.control:
+            if key == 'space' and self.touching :
+                self.velocity += SAUT[self.touching]
+        if key == 'tab':
+            self.control = not self.control
         
     def update(self):
         self.velocity += GRAVITY * time.dt
-        self.velocity.x += (held_keys['right arrow'] - held_keys['left arrow']) * time.dt
+        if self.control:
+            self.velocity.x += (held_keys['right arrow'] - held_keys['left arrow']) * time.dt
 
         touching = None
 
@@ -94,7 +98,7 @@ class Player(Sprite):
         
 
 red_sprite = Player(texture=cote_rouge, position=level1.object_position('objects', 'red-start'))
-blue_sprite = Player(texture=cote_bleu, position=level1.object_position('objects', 'blue-start'))
+blue_sprite = Player(texture=cote_bleu, position=level1.object_position('objects', 'blue-start'), control=False)
 
 
 red_sprite.other = blue_sprite
