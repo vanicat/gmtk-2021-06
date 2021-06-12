@@ -121,6 +121,11 @@ def build_terrain_sprite(x, y, tile):
 terrain = [build_terrain_sprite(x, y, tile) for x, y, tile in level1.iter_layer('terrain')]  
 
 
+def update():
+    camera.position = (red_sprite.position + blue_sprite.position) / 2
+    camera.z = -20
+
+
 def do_unpause():
     print('unpause clicked')
     resume()
