@@ -23,6 +23,7 @@ SAUT = {
     'left': Vec2(1, 2).normalized() * .2,
     'right': Vec2(-1, 2).normalized() * .2
 }
+ELAST = 1
 
 
 cote_bleu = load_texture('cote-bleu', path='assets')
@@ -41,6 +42,8 @@ class Player(Sprite):
         #self.collider.visible = True
         self.control = control
         self.other = None
+        self.length = .3
+
 
     def input(self, key):
         if self.control:
@@ -84,6 +87,13 @@ class Player(Sprite):
         self.touching = touching
         
         self.position += self.velocity * time.dt
+
+        if distance2d(self, self.other) > self.length:
+            vec = self.other.position - self.position
+            vec *= distance2d(self, self.other) - self.length
+            vec *= ELAST * time.dt
+            self.velocity += (vec.x, vec.y)
+
 
     def cast(self, direction:Vec2):
         direction = direction.normalized()
