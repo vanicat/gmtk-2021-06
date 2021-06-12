@@ -50,6 +50,7 @@ class Player(Sprite):
             self.control = not self.control
         
     def update(self):
+        self.velocity *= .9 ** time.dt
         self.velocity += GRAVITY * time.dt
         if self.control:
             self.velocity.x += (held_keys['right arrow'] - held_keys['left arrow']) * time.dt
