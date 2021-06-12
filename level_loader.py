@@ -1,3 +1,4 @@
+#%%
 from collections import OrderedDict
 import json
 from typing import Union
@@ -8,10 +9,11 @@ def load_json(filename: Union[str, Path]):
     with open(filename) as level_file:
         return json.load(level_file)
 
+#%%
 class Level():
     """load level from a json (made with tiled)
 Severall helper method are available"""
-    def __init__(self, name: str) -> None:
+    def __init__(self, name: str):
         filename = Path('assets', name + '.json')
         level = load_json(filename)
         self.level = level
@@ -44,7 +46,7 @@ Severall helper method are available"""
     def object_position(self, layer, name):
         """search in the object layer for an """
         obj = self.objects_groups[layer][name]
-        return (obj['x']/self.tile_size, obj['y']/self.tile_size)
+        return (obj['x']/self.tile_size, -obj['y']/self.tile_size)
 
 
     def iter_layer(self, name):
@@ -60,7 +62,7 @@ Severall helper method are available"""
                     tile_id = next(data)
                     if tile_id != 0:
                         tile = self.tileset[tile_id]
-                        yield (x, y, tile)
+                        yield (x, -y, tile)
 # %%
 if __name__ == '__main__':
     app = Ursina()
