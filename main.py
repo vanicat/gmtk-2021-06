@@ -38,7 +38,7 @@ class Game():
         self.terrain = [build_terrain_sprite(x, y, tile) for x, y, tile in self.level.iter_layer('terrain')]  
 
         def build_cookies(x, y, tile):
-            return Cookie(cookies, position=(x, y), scale = SCALE, tile = tile)
+            return Cookie(self, cookies, position=(x, y), scale = SCALE, tile = tile)
 
         self.cookies = [build_cookies(x, y, tile) for x, y, tile in self.level.iter_object_by_type('objects', 'cookie')]
         print(self.cookies[0].x, self.cookies[0].y)
