@@ -41,7 +41,7 @@ class Game():
             return Cookie(self, cookies, position=(x, y), scale = SCALE, tile = tile)
 
         self.cookies = [build_cookies(x, y, tile) for x, y, tile in self.level.iter_object_by_type('objects', 'cookie')]
-        print(self.cookies[0].x, self.cookies[0].y)
+        self.capacities = set()
 
     def update(self):
         camera.position = (self.red_sprite.position + self.blue_sprite.position) / 2
@@ -49,6 +49,12 @@ class Game():
 
     def clear(self):
         scene.clear()
+
+    def add_capacity(self, capacity):
+        capacity = Capacity(capacity)
+        self.capacities.add(capacity)
+        self.blue_sprite.capacities.add(capacity)
+        self.red_sprite.capacities.add(capacity)
 
 
 game = None

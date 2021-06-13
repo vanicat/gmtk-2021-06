@@ -12,6 +12,9 @@ class Player(Sprite):
         self.control = control
         self.other = None
         self.length = .5
+        self.capacities = set()
+        self.claw = False
+        self.touching = True
 
 
     def input(self, key):
