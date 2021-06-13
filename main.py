@@ -21,6 +21,8 @@ cote_bleu = load_texture('cote-bleu', path='assets')
 cote_rouge = load_texture('cote-rouge', path='assets')
 cookies = load_texture('cookies', path='assets')
 
+sounds['bang'] = Audio('bang', autoplay=False)
+
 class Game():
     def __init__(self, level_name) -> None:
         self.level = Level(level_name, SCALE)

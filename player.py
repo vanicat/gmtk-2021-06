@@ -48,6 +48,9 @@ class Player(Sprite):
         if hits_info.hit and not hits_info.entity.tile.get('intangible'):
             touching.add('right')
 
+        if not self.touching and touching and not self.claw:
+            sounds['bang'].play()
+
         self.touching = touching
 
         # update velocity

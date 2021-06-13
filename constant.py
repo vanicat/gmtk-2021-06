@@ -1,4 +1,4 @@
-from ursina import Vec2
+from ursina import Vec2, Audio
 from enum import Enum, auto
 
 SCALE = 1/20
@@ -12,6 +12,9 @@ SAUT = {
 ELAST = 1
 COMMAND_SPEED = .1
 WALKING_SPEED = .6
+
+
+sounds = {}
 
 class Capacity(Enum):
     def _generate_next_value_(name:str, start, count, last_value):
