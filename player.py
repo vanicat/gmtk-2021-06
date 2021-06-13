@@ -22,6 +22,11 @@ class Player(Sprite):
             if key == 'space' and self.touching :
                 for direction in self.touching:
                     self.velocity += SAUT[direction]
+            if key == 'control':
+                if self.touching and Capacity.CLAW in self.capacities and not self.claw:
+                    self.claw = True
+                else:
+                    self.claw = False
         if key == 'tab':
             self.control = not self.control
         
@@ -30,28 +35,44 @@ class Player(Sprite):
 
         direction = self.down
         hits_info = self.cast(direction)
-        if hits_info.hit and not hits_info.entity.tile.get('intangible'):
-            touching.add('down')
+        if hits_info.hit:
+            if hits_info.entity.tile.get('intangible'):
+                hits_info.entity.collide()
+            else:
+                touching.add('down')
 
         direction = self.up
         hits_info = self.cast(direction)
-        if hits_info.hit and not hits_info.entity.tile.get('intangible'):
-            touching.add('up')
+        if hits_info.hit:
+            if hits_info.entity.tile.get('intangible'):
+                hits_info.entity.collide()
+            else:
+                touching.add('up')
 
         direction = self.left
         hits_info = self.cast(direction)
-        if hits_info.hit and not hits_info.entity.tile.get('intangible'):
-            touching.add('left')
+        if hits_info.hit:
+            if hits_info.entity.tile.get('intangible'):
+                hits_info.entity.collide()
+            else:
+                touching.add('left')
 
         direction = self.right
         hits_info = self.cast(direction)
-        if hits_info.hit and not hits_info.entity.tile.get('intangible'):
-            touching.add('right')
+        if hits_info.hit:
+            if hits_info.entity.tile.get('intangible'):
+                hits_info.entity.collide()
+            else:
+                touching.add('right')
 
         if not self.touching and touching and not self.claw:
             sounds['bang'].play()
 
         self.touching = touching
+
+        if self.claw:
+            self.velocity = Vec2(0, 0)
+            return
 
         # update velocity
         self.velocity *= .9 ** time.dt
