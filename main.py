@@ -1,12 +1,10 @@
 from constant import *
+from libs import *
 from math import hypot
 from ursina import *
 from ursina.application import pause, resume
 from ursina.prefabs.sprite import Sprite
 from level_loader import Level
-
-def length(vec):
-    return hypot(*vec)
 
 app = Ursina()
 
