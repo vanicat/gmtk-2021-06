@@ -32,7 +32,7 @@ class Game():
         self.blue_sprite.other = self.red_sprite
 
         def build_terrain_sprite(x, y, tile):
-            return Sprite(tile['texture'], position=(x, y), scale = SCALE*3.2, collider='box')
+            return Sprite(tile['texture'], position=(x, y), scale = SCALE*3.2, collider='box', tile = tile)
 
         self.terrain = [build_terrain_sprite(x, y, tile) for x, y, tile in self.level.iter_layer('terrain')]  
 
@@ -74,22 +74,22 @@ class Player(Sprite):
 
         direction = self.down
         hits_info = self.cast(direction)
-        if hits_info.hit:
+        if hits_info.hit and not hits_info.entity.tile.get('intangible'):
             touching.add('down')
 
         direction = self.up
         hits_info = self.cast(direction)
-        if hits_info.hit:
+        if hits_info.hit and not hits_info.entity.tile.get('intangible'):
             touching.add('up')
 
         direction = self.left
         hits_info = self.cast(direction)
-        if hits_info.hit:
+        if hits_info.hit and not hits_info.entity.tile.get('intangible'):
             touching.add('left')
 
         direction = self.right
         hits_info = self.cast(direction)
-        if hits_info.hit:
+        if hits_info.hit and not hits_info.entity.tile.get('intangible'):
             touching.add('right')
 
         self.touching = touching
