@@ -1,6 +1,8 @@
 from constant import *
 from libs import *
 from player import Player
+from cookie import Cookie
+
 from math import hypot
 from ursina import *
 from ursina.application import pause, resume
@@ -36,7 +38,7 @@ class Game():
         self.terrain = [build_terrain_sprite(x, y, tile) for x, y, tile in self.level.iter_layer('terrain')]  
 
         def build_cookies(x, y, tile):
-            return Sprite(cookies, position=(x, y), scale = SCALE*3.2, collider='box', tile = tile)
+            return Cookie(cookies, position=(x, y), scale = SCALE, tile = tile)
 
         self.cookies = [build_cookies(x, y, tile) for x, y, tile in self.level.iter_object_by_type('objects', 'cookie')]
         print(self.cookies[0].x, self.cookies[0].y)
