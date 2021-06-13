@@ -84,7 +84,6 @@ def update():
     global game
 
     if game: game.update()
-    else: game = Game('level1')
 
 def input(key):
     if key == 'escape':
@@ -92,6 +91,7 @@ def input(key):
         restart.enable()
         pause()
 
+game = Game('level1')
 pause()
 
 
