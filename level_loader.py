@@ -47,7 +47,7 @@ Severall helper method are available"""
     def object_position(self, layer, name):
         """search in the object layer for an """
         obj = self.objects_groups[layer][name]
-        return (obj['x']/self.tile_size * self.scale, -obj['y']/self.tile_size * self.scale)
+        return (self.coc(obj['x']), -self.coc(obj['y']))
 
 
     def iter_layer(self, name):
@@ -64,7 +64,18 @@ Severall helper method are available"""
                     if tile_id != 0:
                         tile = self.tileset[tile_id]
                         yield (x * self.scale, -y * self.scale, tile)
+        
+    def iter_object_by_type(self, layer, type):
+        for obj in self.objects_groups[layer].values():
+            if obj['type'] == type:
+                
+                yield  (self.coc(obj['x']), -self.coc(obj['y']), obj)
+
+    def coc(self, x):
+        """convert object coordinate to game coordinate"""
+        return x/self.tile_size * self.scale
+
 # %%
 if __name__ == '__main__':
     app = Ursina()
-    level = Level('level1')
+    level = Level('level1', 1/20)
