@@ -24,7 +24,7 @@ SAUT = {
     'right': Vec2(-1, 2).normalized() * .2
 }
 ELAST = 1
-COMMAND_SPEED = .3
+COMMAND_SPEED = .1
 WALKING_SPEED = .6
 
 
@@ -44,68 +44,85 @@ class Player(Sprite):
         #self.collider.visible = True
         self.control = control
         self.other = None
-        self.length = .3
+        self.length = .5
 
 
     def input(self, key):
         if self.control:
             if key == 'space' and self.touching :
-                self.velocity += SAUT[self.touching]
+                for direction in self.touching:
+                    self.velocity += SAUT[direction]
         if key == 'tab':
             self.control = not self.control
         
     def update(self):
-        self.velocity *= .9 ** time.dt
-        self.velocity += GRAVITY * time.dt
-        if self.control:
-            self.velocity.x += (held_keys['right arrow'] - held_keys['left arrow']) * time.dt
-
-        if distance2d(self, self.other) >= self.length:
-            vec = self.other.position - self.position
-            vec = vec.normalized()
-            k = sum(vec * self.velocity)
-            if distance2d(self, self.other) > self.length:
-                k = k*1.10
-            vec *= max(-k, 0)
-            self.velocity += (vec.x, vec.y)
-
-        touching = None
+        touching = set()
 
         direction = self.down
         hits_info = self.cast(direction)
         if hits_info.hit:
-            self.velocity.y = max(self.velocity.y, 0)
-            touching = 'down'
+            touching.add('down')
 
         direction = self.up
         hits_info = self.cast(direction)
         if hits_info.hit:
-            self.velocity.y = min(self.velocity.y, 0)
-            touching = 'up'
+            touching.add('up')
 
         direction = self.left
         hits_info = self.cast(direction)
         if hits_info.hit:
-            self.velocity.x = max(self.velocity.x, 0)
-            touching = 'left'
+            touching.add('left')
 
         direction = self.right
         hits_info = self.cast(direction)
         if hits_info.hit:
-            self.velocity.x = min(self.velocity.x, 0)
-            touching = 'right'
-        
+            touching.add('right')
+
         self.touching = touching
+
+        # update velocity
+        self.velocity *= .9 ** time.dt
+        self.velocity += GRAVITY * time.dt
+        if self.control:
+            if touching:
+                speed = WALKING_SPEED
+            else:
+                speed = COMMAND_SPEED
+            self.velocity.x += (held_keys['right arrow'] - held_keys['left arrow']) * time.dt * speed
+
+        too_long = False
+
+        dist = distance2d(self, self.other)
+        if dist >= self.length:
+            too_long = True
+            vec = self.other.position - self.position
+            vec = vec.normalized()
+            k = sum(vec * self.velocity)
+            if dist > self.length:
+                k = k*1.10
+            vec *= max(-k, 0)
+            self.velocity += (vec.x, vec.y)
+
+        if 'down' in touching:
+            self.velocity.y = max(self.velocity.y, 0)
+        if 'up' in touching:
+            self.velocity.y = min(self.velocity.y, 0)
+        if 'left' in touching:
+            self.velocity.x = max(self.velocity.x, 0)
+        if 'right' in touching:
+            self.velocity.x = min(self.velocity.x, 0)
         
         self.position += self.velocity * time.dt
+
+        #if too_long and distance2d(self, self.other) 
 
 
 
     def cast(self, direction:Vec2):
         direction = direction.normalized()
-        self.position += direction * (length(self.velocity) * time.dt)
+        self.position += direction * (max(length(self.velocity), 0.05) * time.dt)
         hits_info = self.intersects()
-        self.position -= direction * (length(self.velocity) * time.dt)
+        self.position -= direction * (max(length(self.velocity), 0.05) * time.dt)
         
         """ raycast(self.position + direction * self.width / 2, 
             direction = direction,
