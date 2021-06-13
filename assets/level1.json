@@ -123,6 +123,57 @@
                  "width":32,
                  "x":-326,
                  "y":-95
+                }, 
+                {
+                 "gid":7,
+                 "height":31,
+                 "id":7,
+                 "name":"space",
+                 "properties":[
+                        {
+                         "name":"intangible",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"message",
+                         "type":"string",
+                         "value":"You can jump with tab\n  When the other is\nnot weighing on you"
+                        }],
+                 "rotation":0,
+                 "type":"cookie",
+                 "visible":true,
+                 "width":32,
+                 "x":-162,
+                 "y":-381
+                }, 
+                {
+                 "gid":7,
+                 "height":31,
+                 "id":8,
+                 "name":"griffe",
+                 "properties":[
+                        {
+                         "name":"capacity",
+                         "type":"string",
+                         "value":"claw"
+                        }, 
+                        {
+                         "name":"intangible",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"message",
+                         "type":"string",
+                         "value":"You found claw,\nto grip on most walls,\nuse left ctr"
+                        }],
+                 "rotation":0,
+                 "type":"cookie",
+                 "visible":true,
+                 "width":32,
+                 "x":-447,
+                 "y":-187
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -131,7 +182,7 @@
          "y":0
         }],
  "nextlayerid":3,
- "nextobjectid":7,
+ "nextobjectid":9,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.7.0",
