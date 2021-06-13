@@ -133,8 +133,10 @@ class Player(Sprite):
         
         self.position += self.velocity * time.dt
 
-        #if too_long and distance2d(self, self.other) 
-
+        new_dist = distance2d(self, self.other)
+        if too_long and new_dist > self.length * 1.03:
+            self.position += -self.velocity * time.dt
+            self.velocity = Vec2(0, 0)  
 
 
     def cast(self, direction:Vec2):
@@ -180,10 +182,8 @@ def do_button(title, do_it, pos):
     return button
 
 unpause = do_button('start/continue', do_unpause, (0, 0.01))
-
-
 restart = do_button('restart level', do_restart, (0, -0.01))
-
+restart.disable()
 
 def update():
     global game
