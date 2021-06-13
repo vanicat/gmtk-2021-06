@@ -9,6 +9,11 @@ def load_json(filename: Union[str, Path]):
     with open(filename) as level_file:
         return json.load(level_file)
 
+def set_properties(obj):
+    if 'properties' not in obj: return
+    props = obj['properties']
+    for prop in props:
+        obj[prop['name']] = prop['value']
 #%%
 class Level():
     """load level from a json (made with tiled)
@@ -40,6 +45,7 @@ Severall helper method are available"""
             if layer['type'] == 'objectgroup':
                 objects = OrderedDict()
                 for o in layer['objects']:
+                    set_properties(o)
                     objects[o['name']] = o
                 self.objects_groups[layer['name']] = objects
 
@@ -63,6 +69,7 @@ Severall helper method are available"""
                     tile_id = next(data)
                     if tile_id != 0:
                         tile = self.tileset[tile_id]
+                        set_properties(tile)
                         yield (x * self.scale, -y * self.scale, tile)
         
     def iter_object_by_type(self, layer, type):
