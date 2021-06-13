@@ -85,6 +85,11 @@
                  "name":"cursor",
                  "properties":[
                         {
+                         "name":"intangible",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
                          "name":"message",
                          "type":"string",
                          "value":"use cursor key to move"
@@ -102,6 +107,11 @@
                  "id":6,
                  "name":"tab",
                  "properties":[
+                        {
+                         "name":"intangible",
+                         "type":"bool",
+                         "value":true
+                        }, 
                         {
                          "name":"message",
                          "type":"string",
