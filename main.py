@@ -1,3 +1,4 @@
+from constant import *
 from math import hypot
 from ursina import *
 from ursina.application import pause, resume
@@ -9,23 +10,11 @@ def length(vec):
 
 app = Ursina()
 
-SCALE = 1/20
-
 camera.orthographic = True
 camera.fov = 1
 window.borderless = False
 window.exit_button = True
 
-GRAVITY = Vec2(0, -.2)
-SAUT = {
-    'up': Vec2(0, -.2),
-    'down': Vec2(0, .2),
-    'left': Vec2(1, 2).normalized() * .2,
-    'right': Vec2(-1, 2).normalized() * .2
-}
-ELAST = 1
-COMMAND_SPEED = .1
-WALKING_SPEED = .6
 
 cote_bleu = load_texture('cote-bleu', path='assets')
 cote_rouge = load_texture('cote-rouge', path='assets')
