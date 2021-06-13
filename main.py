@@ -27,9 +27,9 @@ ELAST = 1
 COMMAND_SPEED = .1
 WALKING_SPEED = .6
 
-
 cote_bleu = load_texture('cote-bleu', path='assets')
 cote_rouge = load_texture('cote-rouge', path='assets')
+cookies = load_texture('cookies', path='assets')
 
 class Game():
     def __init__(self, level_name) -> None:
@@ -46,6 +46,12 @@ class Game():
             return Sprite(tile['texture'], position=(x, y), scale = SCALE*3.2, collider='box')
 
         self.terrain = [build_terrain_sprite(x, y, tile) for x, y, tile in self.level.iter_layer('terrain')]  
+
+        def build_cookies(x, y, tile):
+            return Sprite(cookies, position=(x, y), scale = SCALE*3.2, collider='box', tile = tile)
+
+        self.cookies = [build_cookies(x, y, tile) for x, y, tile in self.level.iter_object_by_type('objects', 'cookie')]
+        print(self.cookies[0].x, self.cookies[0].y)
 
     def update(self):
         camera.position = (self.red_sprite.position + self.blue_sprite.position) / 2

@@ -1,11 +1,4 @@
 { "compressionlevel":-1,
- "editorsettings":
-    {
-     "export":
-        {
-         "target":"."
-        }
-    },
  "height":40,
  "infinite":true,
  "layers":[
@@ -84,6 +77,42 @@
                  "width":32,
                  "x":-342,
                  "y":-260
+                }, 
+                {
+                 "gid":7,
+                 "height":31,
+                 "id":5,
+                 "name":"cursor",
+                 "properties":[
+                        {
+                         "name":"message",
+                         "type":"string",
+                         "value":"use cursor key to move"
+                        }],
+                 "rotation":0,
+                 "type":"cookie",
+                 "visible":true,
+                 "width":32,
+                 "x":-416,
+                 "y":-80
+                }, 
+                {
+                 "gid":7,
+                 "height":31,
+                 "id":6,
+                 "name":"tab",
+                 "properties":[
+                        {
+                         "name":"message",
+                         "type":"string",
+                         "value":"use tab to change control"
+                        }],
+                 "rotation":0,
+                 "type":"cookie",
+                 "visible":true,
+                 "width":32,
+                 "x":-326,
+                 "y":-95
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -92,10 +121,10 @@
          "y":0
         }],
  "nextlayerid":3,
- "nextobjectid":5,
+ "nextobjectid":7,
  "orientation":"orthogonal",
  "renderorder":"right-down",
- "tiledversion":"1.4.3",
+ "tiledversion":"1.7.0",
  "tileheight":32,
  "tilesets":[
         {
@@ -104,6 +133,6 @@
         }],
  "tilewidth":32,
  "type":"map",
- "version":1.4,
+ "version":"1.6",
  "width":40
 }
